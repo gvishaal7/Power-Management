@@ -21,6 +21,9 @@ public class Baseline {
         this.threePassSum = 0;
     }
     
+    /*
+        Returns the running averages.
+    */
     public float getBaseOne() {        
         return ((float)this.onePassSum/this.onePassCount);
     }
