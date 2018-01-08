@@ -1,7 +1,7 @@
 # Power-Management
 Power Management Module of an electric car.
 
-Module used: Cell, Battery, Baseline, Car, User
+Modules used: Cell, Battery, Baseline, Car, User
 
 Cell module is used to store the individual capacity of each cell present in a battery in watts(w).
 
@@ -24,6 +24,6 @@ Car module contains the details about the car, total distance travalled, type of
 
 User module contains the list of cars owned by the user.
 
-Calculations are made in watts(w) and later converted to kilowatt(kW) before storing and/or displaying.
+Calculations are made in watts(W) and later converted to kilowatt(kW) before storing and/or displaying.
 
 Double is used over float in many places so that the values are more precise.
