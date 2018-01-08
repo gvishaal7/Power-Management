@@ -9,9 +9,9 @@ public class unitTest {
     public unitTest() {
     }
     
-    
-
-    
+    /*
+        helper functions to create objects for user, car and battery
+    */
     public User createUser(int numberOfCars, int[] cellsPerBattery) {
         User u = new User();
         for(int iter=0;iter<numberOfCars;iter++) {
@@ -126,9 +126,13 @@ public class unitTest {
         Battery testBattery = new Battery(cells);
         double totalBatteryCapacity = testBattery.getTotalCapacity();
         String status = "";
+        //initial charge
+        System.out.println("Current Charge : "+testBattery.getCurrentCharge());
         do {
             status = testBattery.updateDischarging(1);
         } while(!status.equalsIgnoreCase("LOW BATTERY"));
+        //after discharing
+        System.out.println("Current Charge : "+testBattery.getCurrentCharge());
         double currentBatteryCharge = (testBattery.getCurrentCharge()*totalBatteryCapacity)/100;
         assertEquals("low battery check for 1 passenger",(totalBatteryCapacity*20/100), currentBatteryCharge,0.01);
     }
@@ -158,15 +162,22 @@ public class unitTest {
         int cells = 6750;
         Battery testBattery = new Battery(cells);
         String status = "";
+        //discharing
         do {
             status = testBattery.updateDischarging(1);
-        }while(!status.equalsIgnoreCase("LOW BATTERY"));        
+        }while(!status.equalsIgnoreCase("LOW BATTERY"));   
+        System.out.println("Current Charge : "+testBattery.getCurrentCharge());
+        //charging
         for(int iter=0;iter<50;iter++) {
             testBattery.updateCharging();
         }
+        System.out.println("Current Charge : "+testBattery.getCurrentCharge());
+        //discharging
         do {
             status = testBattery.updateDischarging(1);
         }while(!status.equalsIgnoreCase("LOW BATTERY"));
+        System.out.println("Current Charge : "+testBattery.getCurrentCharge());
+        System.out.println("Cycles Completed : "+testBattery.getCyclesCount());
         assertEquals("battery cycles completed",1,testBattery.getCyclesCount(),0);
     }
     
@@ -201,6 +212,7 @@ public class unitTest {
         int cells = 5000;
         Battery testCarBattery = createBattery(cells);
         testCar.setBattery(testCarBattery);
+        
         Baseline testBatteryBaseline = testCarBattery.getBaseLine();
         double onePassFactoryBase = testBatteryBaseline.getBaseOne();
         double twoPassFactoryBase = testBatteryBaseline.getBaseTwo();
@@ -217,11 +229,17 @@ public class unitTest {
         double onePassNewBase = testBatteryBaseline.getBaseOne();
         double twoPassNewBase = testBatteryBaseline.getBaseTwo();
         double threePassNewBase = testBatteryBaseline.getBaseThree();
-        double fourPassNewBase = testBatteryBaseline.getBaseFour();       
+        double fourPassNewBase = testBatteryBaseline.getBaseFour();
+        
         assertNotEquals("updating battery baseline for every 100KM driven", onePassNewBase, onePassFactoryBase, 0);
         assertNotEquals("updating battery baseline for every 100KM driven", twoPassNewBase, twoPassFactoryBase, 0);
         assertNotEquals("updating battery baseline for every 100KM driven", threePassNewBase, threePassFactoryBase, 0);
         assertNotEquals("updating battery baseline for every 100KM driven", fourPassNewBase, fourPassFactoryBase, 0);
+        
+        System.out.println("Passenger 1 : "+onePassFactoryBase+","+onePassNewBase);
+        System.out.println("Passenger 2 : "+twoPassFactoryBase+","+twoPassNewBase);
+        System.out.println("Passenger 3 : "+threePassFactoryBase+","+threePassNewBase);
+        System.out.println("Passenger 4 : "+fourPassFactoryBase+","+fourPassNewBase);
     }
     
     /*
@@ -234,6 +252,7 @@ public class unitTest {
         User testUser = createUser(noOfCars, cellsPerBattery);
         assertNotNull(testUser);
     }
+    
     /*
         This test determines if the total number of cars owned by the user is correct.
     */
