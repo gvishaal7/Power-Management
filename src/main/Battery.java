@@ -177,7 +177,6 @@ public class Battery {
                 currentBatteryCapacity += decayAmt;     
             }         
         }
-        //System.out.println(currentBatteryCapacity);
         this.tripCharge[passengers-1] += currentBatteryCapacity; //updates the energy consumed for every 0.25KM
         if(((this.discharge/this.totalBatteryCapacity)*100) >= 100) { //condition to check if one battery cycle has been completed
             this.discharge =0;
