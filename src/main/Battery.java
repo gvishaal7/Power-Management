@@ -179,7 +179,7 @@ public class Battery {
         }
         this.tripCharge[passengers-1] += currentBatteryCapacity; //updates the energy consumed for every 0.25KM
         if(((this.discharge/this.totalBatteryCapacity)*100) >= 100) { //condition to check if one battery cycle has been completed
-            this.discharge =0;
+            this.discharge -= 100;
             this.cyclesCompleted++;
         }
         double charge = getCurrentCharge();
